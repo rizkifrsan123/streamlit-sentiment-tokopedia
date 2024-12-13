@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Sentiment Analysis</h1>
+        <form action="/predict" method="post">
+            <textarea name="review" placeholder="Tulis ulasan Anda di sini..." required>{{ request.form.get('review', '') }}</textarea>
+            <button type="submit">Prediksi Sentimen</button>
+        </form>
+        {% if prediction_text %}
+            <div class="result">
+                <h3>Sentimen: {{ prediction_text }}</h3>
+                <p>Probabilitas: {{ prediction_prob }}</p>
+                <p>Ulasan: {{ review_text }}</p>
+                <div class="emotion">
+                    <h4>Emosi</h4>
+                    <img src="{{ url_for('static', filename='Emoji/' + prediction_text + '.jpg') }}" alt="Ikon Emosi">
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
